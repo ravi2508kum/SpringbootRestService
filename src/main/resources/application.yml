@@ -1,0 +1,25 @@
+management:
+ endpoints:
+  web:
+   exposure:
+    include: "*"
+spring:
+  application:
+    name: employeeService
+server: 
+  port: 8081
+  
+camel:
+  component:
+    servlet:
+      mapping:
+        context-path: /*
+rest:
+  endpoint:
+   path: rest:get:getEmpDetails/{id}
+   retrycount: 3
+   retrydelay: 60000
+
+employee:
+  service:
+   path: http://localhost:8080/employeeDetails/$simple{header.id}?httpMethod=GET&bridgeEndpoint=true
